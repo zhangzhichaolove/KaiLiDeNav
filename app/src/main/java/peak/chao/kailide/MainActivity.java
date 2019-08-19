@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         if (null != mMapView) {
             mMapView.onPause();// 当地图控件存在时，调用相应的生命周期方法
-//            CldTruckUtil.removeTruckOverlays();
+            CldTruckUtil.removeTruckOverlays();
         }
     }
 
