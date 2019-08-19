@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.cld.navisdk.util.view.CldProgress;
 import com.cld.ols.module.account.CldKAccountAPI;
 
 public class MainActivity extends AppCompatActivity {
+    private int ROUTE_PLAN_MOD = CldNaviManager.RoutePlanPreference.ROUTE_PLAN_MOD_RECOMMEND;
     private MapView mMapView = null;
     // 路径规划失败标识
     private final int MSG_ID_PLANROUTE_FAILED = 1001;
@@ -114,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
                             MainActivity.this,
                             "路径规划成功,已为您回避" + avoidNum + "个限行,还有" + limitNum + "个限行",
                             Toast.LENGTH_LONG).show();
-                    startNavi(true);
                     break;
             }
         }
@@ -243,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                 //        int ROUTE_PLAN_MOD_AVOID_TAFFICJAM = 64;//线路平面图避开系数
                 //        int ROUTE_PLAN_MOD_WALK = 32;//线路平面图步行
                 //        int ROUTE_PLAN_MOD_FERRY = 128;//渡船
-                CldNaviManager.RoutePlanPreference.ROUTE_PLAN_MOD_FERRY, // 算路方式
+                ROUTE_PLAN_MOD, // 算路方式
                 hyRoutePlanParm, listener);
     }
 
@@ -290,5 +291,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         CldRoutePlaner.getInstance().clearRoute(); // 关闭界面时，清除规划路线
         super.onDestroy();
+    }
+
+    public void reStartNav(View view) {
+        ROUTE_PLAN_MOD *= 2;
+        if (ROUTE_PLAN_MOD >= 128) {
+            ROUTE_PLAN_MOD = 1;
+        }
+        startCalcRoute();
+    }
+
+    public void startNav(View view) {
+        startNavi(true);
     }
 }
