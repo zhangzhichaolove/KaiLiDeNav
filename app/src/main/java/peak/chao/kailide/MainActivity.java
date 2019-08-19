@@ -25,7 +25,7 @@ import com.cld.navisdk.util.view.CldProgress;
 import com.cld.ols.module.account.CldKAccountAPI;
 
 public class MainActivity extends AppCompatActivity {
-    private int ROUTE_PLAN_MOD = CldNaviManager.RoutePlanPreference.ROUTE_PLAN_MOD_RECOMMEND;
+    private int type = CldNaviManager.RoutePlanPreference.ROUTE_PLAN_MOD_RECOMMEND;
     private MapView mMapView = null;
     // 路径规划失败标识
     private final int MSG_ID_PLANROUTE_FAILED = 1001;
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                 //        int ROUTE_PLAN_MOD_AVOID_TAFFICJAM = 64;//线路平面图避开系数
                 //        int ROUTE_PLAN_MOD_WALK = 32;//线路平面图步行
                 //        int ROUTE_PLAN_MOD_FERRY = 128;//渡船
-                ROUTE_PLAN_MOD, // 算路方式
+                type, // 算路方式
                 hyRoutePlanParm, listener);
     }
 
@@ -294,9 +294,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reStartNav(View view) {
-        ROUTE_PLAN_MOD *= 2;
-        if (ROUTE_PLAN_MOD >= 128) {
-            ROUTE_PLAN_MOD = 1;
+        type *= 2;
+        if (type >= 128) {
+            type = 1;
         }
         startCalcRoute();
     }
