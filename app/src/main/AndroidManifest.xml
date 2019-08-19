@@ -47,9 +47,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!--9952980a00bdkccdb875b237-->
         <meta-data
             android:name="com.cld.lbsapi.API_KEY"
-            android:value="9952980a00bdkccdb875b237" />
+            android:value="e1e1e1bd601s22jff9c8b383" />
 
         <activity android:name=".MainActivity">
             <intent-filter>

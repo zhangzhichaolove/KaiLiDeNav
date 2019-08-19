@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             mMapView = CldNaviManager.getInstance().createNMapView(MainActivity.this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             ((LinearLayout) findViewById(R.id.root)).addView(mMapView, params);
-            startCalcRoute();
+            //startCalcRoute();
         }
     };
 
@@ -119,8 +119,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
-
-        ;
     };
 
     /**
@@ -279,17 +277,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (null != mMapView) {
+            mMapView.onResume();// 当地图控件存在时，调用相应的生命周期方法
+        }
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         if (null != mMapView) {
             mMapView.onPause();// 当地图控件存在时，调用相应的生命周期方法
-            CldTruckUtil.removeTruckOverlays();
+//            CldTruckUtil.removeTruckOverlays();
         }
     }
 
     @Override
     protected void onDestroy() {
         CldRoutePlaner.getInstance().clearRoute(); // 关闭界面时，清除规划路线
+        mMapView.destroy();
         super.onDestroy();
     }
 
